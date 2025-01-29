@@ -42,11 +42,19 @@ const signIn = () => {
         <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 40, paddingHorizontal: 20 }}>
           <FormField 
             title="Email"
-            placeholder={'Enter your email'}
+            placeholder={'Email'}
             value={form.email}
             handleChangeText={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-7"
             keyboardType="email-address"
+          />
+          <FormField 
+            title="Password"
+            placeholder={'Password'}
+            value={form.email}
+            handleChangeText={(e) => setForm({ ...form, password: e })}
+            otherStyles="mt-7"
+            keyboardType="Password"
           />
         </View>
       <StatusBar style="auto" />
