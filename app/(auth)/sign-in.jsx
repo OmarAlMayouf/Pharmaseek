@@ -69,7 +69,7 @@ const signIn = () => {
                 title="password"
                 placeholder={"Password"}
                 value={form.password}
-                handleChangeText={(e) => setForm({ ...form, Password: e })}
+                handleChangeText={(e) => setForm({ ...form, password: e })}
                 otherStyles="mt-7"
                 keyboardType="Password"
               />
