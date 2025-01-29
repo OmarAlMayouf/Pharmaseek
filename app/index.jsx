@@ -1,11 +1,14 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
+import CustomButton from '../components/CustomButton';
+import { StatusBar } from 'expo-status-bar';
+import { Redirect, router } from 'expo-router';
 
 export default function App() {
   return (
     <SafeAreaView className="bg-white h-full">
-      <View className="flex-1">
+      <View className="flex-1 min-h-[85vh] w-full">
 
         <Image
           source={images.wavyShape}
@@ -35,10 +38,8 @@ export default function App() {
             left: 30
           }}
         >
-          Seeker
+          Seeker!
         </Text>
-        
-
 
         <View style={{ marginTop: 130, alignItems: 'center' }}>
           <Image
@@ -51,34 +52,22 @@ export default function App() {
           />
         </View>
 
-        {/* Button Section */}
         <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 40, paddingHorizontal: 20 }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#09B683',
-              borderRadius: 50,
-              paddingVertical: 15,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={{ fontSize: 18 }} className="text-white font-rmedium">Sign In</Text>
-          </TouchableOpacity>
-
-
-          <TouchableOpacity className="mt-4"
-            style={{
-              backgroundColor: '#ECECEC',
-              borderRadius: 50,
-              paddingVertical: 15,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={{ fontSize: 18, color: '#373737' }} className="font-rmedium">Create New Account</Text>
-          </TouchableOpacity>
+          <CustomButton 
+            title="Sign In"
+            handlePress={() => router.push('/sign-in')}
+            containerStyle="bg-primary mt-4 rounded-full justify-center items-center min-h-[55px]"
+            textStyle={"text-white font-rmedium text-[18px]"}
+            />
+          <CustomButton 
+            title="Create New Account"
+            handlePress={() => router.push('/sign-up')}
+            containerStyle="bg-[#ECECEC] mt-4 rounded-full justify-center items-center min-h-[55px]"
+            textStyle={"text-[#373737] font-rmedium text-[18px]"}
+            />
         </View>
       </View>
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
