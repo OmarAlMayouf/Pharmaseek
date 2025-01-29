@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#09B683",
+        primary: "#154C79",
       },
       fontFamily: {
         rConLight: ["Roboto_Condensed-Light", "sans-serif"],

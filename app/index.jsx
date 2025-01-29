@@ -56,13 +56,13 @@ export default function App() {
           <CustomButton 
             title="Sign In"
             handlePress={() => router.push('/sign-in')}
-            containerStyle="bg-primary mt-4 rounded-full justify-center items-center min-h-[55px]"
+            containerStyle="bg-primary mt-4 rounded-[15px] justify-center items-center min-h-[55px]"
             textStyle={"text-white font-rmedium text-[18px]"}
             />
           <CustomButton 
             title="Create New Account"
             handlePress={() => router.push('/sign-up')}
-            containerStyle="bg-[#ECECEC] mt-4 rounded-full justify-center items-center min-h-[55px]"
+            containerStyle="bg-[#ECECEC] mt-4 rounded-[15px] justify-center items-center min-h-[55px]"
             textStyle={"text-[#373737] font-rmedium text-[18px]"}
             />
         </View>
