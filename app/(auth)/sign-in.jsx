@@ -106,7 +106,7 @@ const signIn = () => {
                 </Text>
               </View>
             </View>
-            <StatusBar style="auto" />
+            <StatusBar style="light" />
           </View>
         </SafeAreaView>
       </ScrollView>

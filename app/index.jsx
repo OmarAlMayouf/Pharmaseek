@@ -67,7 +67,7 @@ export default function App() {
             />
         </View>
       </View>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </SafeAreaView>
   );
 }
