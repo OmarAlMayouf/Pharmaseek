@@ -68,7 +68,7 @@ const signIn = () => {
               <FormField
                 title="password"
                 placeholder={"Password"}
-                value={form.email}
+                value={form.password}
                 handleChangeText={(e) => setForm({ ...form, Password: e })}
                 otherStyles="mt-7"
                 keyboardType="Password"
