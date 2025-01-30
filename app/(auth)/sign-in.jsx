@@ -12,6 +12,9 @@ const signIn = () => {
     email: "",
     password: "",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -93,6 +96,7 @@ const signIn = () => {
                 handlePress={() => router.push("/home")}
                 containerStyle="bg-primary mt-16 rounded-[15px] justify-center items-center min-h-[55px]"
                 textStyle={"text-white font-rmedium text-[18px]"}
+                isLoading={isSubmitting}
               />
               <View>
                 <Text className="text-[#7D7D7D] font-rsemibold text-[13px] mt-5 text-center">

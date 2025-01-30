@@ -17,6 +17,8 @@ const signUp = () => {
     passwordConfirmation: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -101,6 +103,7 @@ const signUp = () => {
                   handlePress={() => router.push('/sign-in')}
                   containerStyle="bg-primary rounded-[15px] min-h-[55px] item-center justify-center mt-4"
                   textStyle="text-white font-rmedium text-[18px] text-center"
+                  isLoading={isSubmitting}
                 />
                 <Text className="text-[#7D7D7D] font-rsemibold text-[13px] mt-5 text-center">Already have an account? <Text className="text-primary font-rsemibold" onPress={() => router.push('/sign-in')}>Sign In</Text></Text>
               </View>
