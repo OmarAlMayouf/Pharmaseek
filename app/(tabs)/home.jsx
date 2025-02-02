@@ -4,8 +4,22 @@ import pharmacyData from '../../Pharmacy_dataSet2.json';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { images } from '../../constants';
+import * as Location from 'expo-location';
 
-// Function to clean street name (remove numbers and codes)
+const haversineDistance = (lat1, lon1, lat2, lon2) => {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  return R * c;
+};
+
 const cleanStreetName = (street) => {
   if (!street || street === "") return 'No street info'; //"JPQ5+5G"
   array = street.split(' ');
@@ -21,46 +35,45 @@ const cleanStreetName = (street) => {
   }
   street = array.join(' ');
 
-  return !street ? 'No street info' : street; //"No street info, Riyadh"
+  return !street ? 'No street info' : street;
 };
 
-// Function to get pharmacy name in English (if available)
 const getPharmacyName = (name) => {
   if (!name) return 'Unknown Pharmacy';
   return name.includes('|') ? name.split('|')[0].trim() : name.trim();
 };
 
-// Function to check if a pharmacy is open
 const isPharmacyOpen = (workingHours) => {
   if (!workingHours) return 'Closed';
 
   try {
     const now = new Date();
-    const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' }); // Get current day (e.g., "Monday")
+    const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' });
     const hours = JSON.parse(workingHours)[dayOfWeek];
 
     if (!hours || hours.toLowerCase() === 'closed') return 'Closed';
+    if (hours.toLowerCase() === 'open 24 hours') return 'Opened';
 
-    // Parse time ranges (e.g., "7AM-2AM" or "1-2PM,4PM-1AM")
     const timeRanges = hours.split(',');
     for (let timeRange of timeRanges) {
       let [startTime, endTime] = timeRange.trim().split('-');
 
-      // Convert to 24-hour format
       const parseTime = (time) => {
-        let date = new Date();
-        let [hour, modifier] = time.match(/\d+|AM|PM/g);
+        const match = time.match(/(\d+)(?::(\d+))?\s*(AM|PM)/i);
+        if (!match) throw new Error('Invalid time format');
+        let [, hour, minute = '0', modifier] = match;
         hour = parseInt(hour);
-        if (modifier === 'PM' && hour !== 12) hour += 12;
-        if (modifier === 'AM' && hour === 12) hour = 0;
-        date.setHours(hour, 0, 0);
+        minute = parseInt(minute);
+        if (modifier.toUpperCase() === 'PM' && hour !== 12) hour += 12;
+        if (modifier.toUpperCase() === 'AM' && hour === 12) hour = 0;
+        const date = new Date();
+        date.setHours(hour, minute, 0, 0);
         return date;
       };
 
       let start = parseTime(startTime);
       let end = parseTime(endTime);
 
-      // Adjust if time passes midnight (e.g., "7PM-2AM")
       if (end < start) end.setDate(end.getDate() + 1);
 
       if (now >= start && now <= end) return 'Opened';
@@ -74,42 +87,81 @@ const isPharmacyOpen = (workingHours) => {
 
 const Home = () => {
   const [pharmacies, setPharmacies] = useState([]);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    // Process data dynamically when the component loads
-    const processedData = pharmacyData.map((pharmacy, index) => ({
-      id: index.toString(), // Unique key for FlatList
-      name: getPharmacyName(pharmacy.name),
-      street: cleanStreetName(pharmacy.street),
-      borough: pharmacy.borough || 'Unknown borough',
-      city: pharmacy.city || 'Unknown City',
-      rating: pharmacy.rating || 'N/A',
-      logo: pharmacy.logo, // Default logo if missing
-      status: isPharmacyOpen(pharmacy.working_hours),
-    }));
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
 
-    setPharmacies(processedData);
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude
+      });
+    })();
   }, []);
+
+  useEffect(() => {
+    if (!location) return;
+
+    const processedData = pharmacyData.map((pharmacy, index) => {
+      const distance = pharmacy.latitude && pharmacy.longitude 
+        ? haversineDistance(
+            location.lat,
+            location.lng,
+            pharmacy.latitude,
+            pharmacy.longitude
+          ).toFixed(2)
+        : 'N/A';
+
+      return {
+        id: index.toString(),
+        name: getPharmacyName(pharmacy.name),
+        street: cleanStreetName(pharmacy.street),
+        borough: pharmacy.borough || 'Unknown borough',
+        city: pharmacy.city || 'Unknown City',
+        rating: pharmacy.rating || 'N/A',
+        logo: pharmacy.logo,
+        status: isPharmacyOpen(pharmacy.working_hours),
+        distance: distance
+      };
+    });
+
+    const sortedData = processedData.sort((a, b) => a.distance - b.distance);
+    setPharmacies(sortedData);
+  }, [location]);
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-    
       <View className="flex-1 bg-white p-4">
+        {errorMsg && <Text className="text-red-500">{errorMsg}</Text>}
+        
         <FlatList
           data={pharmacies}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View className="border p-3 mb-3 rounded-lg shadow-sm">
-              <Image source={item.logo ===null? images.defaultPharmacyPhoto:{ uri: item.logo}} className="w-12 h-12 rounded-full" />
+              <Image 
+                source={item.logo ? { uri: item.logo } : images.defaultPharmacyPhoto} 
+                className="w-12 h-12 rounded-full"
+              />
               <Text className="text-lg font-bold">{item.name}</Text>
               <Text className="text-gray-600">
-              {item.street === "No street info" ? `${item.borough}, ${item.city}` :
-              (item.borough === "Unknown borough" || item.borough === "") ? `${item.street}, ${item.city}` :
-              (item.borough === "Unknown borough" && item.street === "No street info") ? item.city :
-              (item.street === "حي" && (item.borough === "Unknown borough" || item.borough === "")) ? item.city :
-              `${item.street}, ${item.borough}, ${item.city}`}
+                {item.street === "No street info" ? `${item.borough}, ${item.city}` :
+                (item.borough === "Unknown borough" || item.borough === "") ? `${item.street}, ${item.city}` :
+                (item.borough === "Unknown borough" && item.street === "No street info") ? item.city :
+                (item.street === "حي" && (item.borough === "Unknown borough" || item.borough === "")) ? item.city :
+                `${item.street}, ${item.borough}, ${item.city}`}
               </Text>
               <Text className="text-yellow-500">⭐ {item.rating}</Text>
+              <Text className="text-gray-500 text-sm">
+                {item.distance === 'N/A' ? 'Distance unavailable' : `${item.distance} KM away`}
+              </Text>
               <Text className={item.status === 'Opened' ? 'text-green-500' : 'text-red-500'}>
                 {item.status}
               </Text>

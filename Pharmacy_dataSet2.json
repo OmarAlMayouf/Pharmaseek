@@ -778,7 +778,7 @@
         "latitude": 24.7462339,
         "longitude": 46.6679088,
         "rating": 5.0,
-        "working_hours": "{\"Monday\": \"12-8AM,10AM-12AM\", \"Tuesday\": \"12-8AM,10AM-12AM\", \"Wednesday\": \"12-8AM,10AM-12AM\", \"Thursday\": \"12-8AM,10AM-12AM\", \"Friday\": \"12-8AM,10AM-12AM\", \"Saturday\": \"12-8AM,10AM-12AM\", \"Sunday\": \"12-8AM,10AM-12AM\"}",
+        "working_hours": "{\"Monday\": \"12PM-8AM,10AM-12AM\", \"Tuesday\": \"12PM-8AM,10AM-12AM\", \"Wednesday\": \"12PM-8AM,10AM-12AM\", \"Thursday\": \"12PM-8AM,10AM-12AM\", \"Friday\": \"12PM-8AM,10AM-12AM\", \"Saturday\": \"12PM-8AM,10AM-12AM\", \"Sunday\": \"12PM-8AM,10AM-12AM\"}",
         "about": "{}",
         "logo": null,
         "location_link": "https://www.google.com/maps/place/%D8%B5%D9%8A%D8%AF%D9%84%D9%8A%D8%A9+%D8%AE%D8%A8%D8%B1%D8%A7%D8%A1+%D8%A7%D9%84%D9%85%D8%AC%D8%AA%D9%85%D8%B9+-+%D8%AD%D9%8A+%D8%A7%D9%84%D9%85%D9%84%D9%83+%D9%81%D9%87%D8%AF+-+%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6/@24.7462339,46.6679088,14z/data=!4m8!1m2!2m1!1s%D8%B5%D9%8A%D8%AF%D9%84%D9%8A%D8%A9+%D8%AE%D8%A8%D8%B1%D8%A7%D8%A1+%D8%A7%D9%84%D9%85%D8%AC%D8%AA%D9%85%D8%B9+-+%D8%AD%D9%8A+%D8%A7%D9%84%D9%85%D9%84%D9%83+%D9%81%D9%87%D8%AF+-+%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6!3m4!1s0x3e2ee30071313b6d:0x2d7cbf667948b4be!8m2!3d24.7462339!4d46.6679088"
@@ -1184,7 +1184,7 @@
         "latitude": 24.64314,
         "longitude": 46.7175515,
         "rating": 4.0,
-        "working_hours": "{\"Monday\": \"8AM-3PM,4-11PM\", \"Tuesday\": \"8AM-3PM,4-11PM\", \"Wednesday\": \"8AM-3PM,4-11PM\", \"Thursday\": \"8AM-3PM,4-11PM\", \"Friday\": \"1-11PM\", \"Saturday\": \"8AM-3PM,4-11PM\", \"Sunday\": \"8AM-3PM,4-11PM\"}",
+        "working_hours": "{\"Monday\": \"8AM-3PM,4PM-11PM\", \"Tuesday\": \"8AM-3PM,4PM-11PM\", \"Wednesday\": \"8AM-3PM,4PM-11PM\", \"Thursday\": \"8AM-3PM,4PM-11PM\", \"Friday\": \"1PM-11PM\", \"Saturday\": \"8AM-3PM,4PM-11PM\", \"Sunday\": \"8AM-3PM,4PM-11PM\"}",
         "about": "{\"Service options\": {\"Delivery\": true}, \"Payments\": {\"Credit cards\": true}}",
         "logo": null,
         "location_link": "https://www.google.com/maps/place/SAFARI+Pharmacy/@24.64314,46.7175515,14z/data=!4m8!1m2!2m1!1sSAFARI+Pharmacy!3m4!1s0x3e2f05c31a3ed4a3:0x56e925d11fcffaaa!8m2!3d24.64314!4d46.7175515"
@@ -1394,7 +1394,7 @@
         "latitude": 24.709252,
         "longitude": 46.7015228,
         "rating": 4.2,
-        "working_hours": "{\"Monday\": \"7-11:30AM,1:30PM-12AM\", \"Tuesday\": \"Open 24 hours\", \"Wednesday\": \"Open 24 hours\", \"Thursday\": \"Open 24 hours\", \"Friday\": \"12:30PM-12AM\", \"Saturday\": \"Open 24 hours\", \"Sunday\": \"7-11:30AM,1:30PM-2AM\"}",
+        "working_hours": "{\"Monday\": \"7AM-11:30AM,1:30PM-12AM\", \"Tuesday\": \"Open 24 hours\", \"Wednesday\": \"Open 24 hours\", \"Thursday\": \"Open 24 hours\", \"Friday\": \"12:30PM-12AM\", \"Saturday\": \"Open 24 hours\", \"Sunday\": \"7AM-11:30AM,1:30PM-2AM\"}",
         "about": "{\"Service options\": {\"Delivery\": true}, \"Accessibility\": {\"Wheelchair-accessible car park\": true, \"Wheelchair-accessible entrance\": true}, \"Payments\": {\"Credit cards\": true}}",
         "logo": "https://lh3.googleusercontent.com/-Uw5s4MLr-g0/AAAAAAAAAAI/AAAAAAAAAAA/TbaPhLtZpF4/s44-p-k-no-ns-nd/photo.jpg",
         "location_link": "https://www.google.com/maps/place/ZAHRA+AL+SHARQ+PHARMACY/@24.709252,46.7015228,14z/data=!4m8!1m2!2m1!1sZAHRA+AL+SHARQ+PHARMACY!3m4!1s0x3e2f0304f047e9c3:0x2d586c9f843cffdc!8m2!3d24.709252!4d46.7015228"
