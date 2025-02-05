@@ -4,6 +4,7 @@ import wavyShape_signIn from '../assets/images/wavyShape-signIn.png';
 import wavyShape_signUp from '../assets/images/wavyShape-signUp.png'
 import defaultPharmacyPhoto from '../assets/images/defaultPharmacyPhoto.png'
 import locationOff from '../assets/images/location-off.png'
+import noNotification from '../assets/images/notification.png';
 
 const images = {
     investegator, 
@@ -12,6 +13,7 @@ const images = {
     wavyShape_signUp,
     defaultPharmacyPhoto,
     locationOff,
+    noNotification,
 };
 
 export default images;
