@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image, Linking, AppState } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import pharmacyData from '../../constants/Pharmacy_dataSet2.json';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -13,24 +13,55 @@ const Home = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const requestLocationPermission = async () => {
-    setErrorMsg(null); // Reset error message before retrying
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    
-    if (status !== 'granted') {
-      setErrorMsg('We’re having trouble detecting your location');
-      return;
-    }
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    return () => subscription.remove();
+  }, []);
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation({
-      lat: location.coords.latitude,
-      lng: location.coords.longitude
-    });
+  const handleAppStateChange = async (nextAppState) => {
+    if (nextAppState === 'active') {
+      await checkPermissions();
+    }
+  };
+
+  const checkPermissions = async () => {
+    try {
+      const { status } = await Location.getForegroundPermissionsAsync();
+      
+      if (status === 'granted') {
+        const location = await Location.getCurrentPositionAsync({});
+        setLocation({
+          lat: location.coords.latitude,
+          lng: location.coords.longitude
+        });
+        setErrorMsg(null);
+      } else if (status === 'denied' || status === 'blocked') {
+        setErrorMsg('Location access required to find nearby pharmacies');
+      } else {
+        setErrorMsg(null);
+      }
+    } catch (error) {
+      setErrorMsg('Error checking location permissions');
+    }
+  };
+
+  const handleEnableLocation = async () => {
+    const { status } = await Location.getForegroundPermissionsAsync();
+    
+    if (status === 'denied' || status === 'blocked') {
+      Linking.openSettings();
+    } else {
+      const { status: newStatus } = await Location.requestForegroundPermissionsAsync();
+      if (newStatus === 'granted') {
+        await checkPermissions();
+      } else {
+        setErrorMsg('Please enable location access to continue');
+      }
+    }
   };
 
   useEffect(() => {
-    requestLocationPermission();
+    checkPermissions();
   }, []);
 
   useEffect(() => {
@@ -66,25 +97,24 @@ const Home = () => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 bg-white p-4">
-        
-        {/* Show Error Message & Enable Location Button */}
         {errorMsg ? (
           <View className="flex-1 justify-center items-center">
-          <View className="justify-center items-center gap-20 ">
-            <Image
-              source={images.locationOff}
-              resizeMode="contain"
-              className="w-[200px] h-[200px]"
-            />
-            <Text className="text-black mt-2 text-center text-[17px] font-rregular">{errorMsg}</Text>
+            <View className="justify-center items-center gap-20">
+              <Image
+                source={images.locationOff}
+                resizeMode="contain"
+                className="w-[200px] h-[200px]"
+              />
+              <Text className="text-black mt-2 text-center text-[17px] font-rregular">
+                {errorMsg}
+              </Text>
             </View>
-            {/* Button to Enable Location */}
             <CustomButton
-                  title="Enable Location"
-                  handlePress={requestLocationPermission}
-                  containerStyle="bg-primary mt-6 rounded-[15px] justify-center items-center min-h-[55px] min-w-[350px]"
-                  textStyle={"text-white font-rsemibold text-[18px]"}
-                />
+              title="Enable Location"
+              handlePress={handleEnableLocation}
+              containerStyle="bg-primary mt-6 rounded-[15px] justify-center items-center min-h-[55px] min-w-[350px]"
+              textStyle={"text-white font-rsemibold text-[18px]"}
+            />
           </View>
         ) : (
           <FlatList
