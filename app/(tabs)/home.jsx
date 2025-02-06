@@ -1,7 +1,6 @@
 import { View, Text, FlatList, Image, Linking, AppState, TouchableOpacity, TextInput } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import pharmacyData from '../../constants/Pharmacy_dataSet2.json';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { images } from '../../constants';
 import { haversineDistance, cleanStreetName, getPharmacyName, isPharmacyOpen, getPharmacyRating } from '../../constants/dataPulling';
