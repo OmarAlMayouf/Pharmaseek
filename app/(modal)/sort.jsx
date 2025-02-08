@@ -1,0 +1,52 @@
+import { View, Text, FlatList } from "react-native";
+import CustomButton from "../../components/CustomButton";
+import { router } from "expo-router";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Sort from "../../constants/Sort.json";
+
+const sort = () => {
+  return (
+    <View className="flex-1 bg-white p-4">
+      <FlatList
+        data={Sort}
+        renderItem={({ item }) => (
+          <View className="flex-row justify-between mb-4 border-b-[0.5px] border-[#7D7D7D50] py-3">
+            <Text className="text-zinc-700 text-lg font-rmedium">
+              {item.name}
+            </Text>
+            <BouncyCheckbox
+              size={21}
+              fillColor="#154C79"
+              unfillColor="white"
+              iconStyle={{ borderColor: "#154C79", borderRadius: 4 }}
+              innerIconStyle={{ borderRadius: 4, borderColor: "#7D7D7D" }}
+              onPress={() => {}}
+            />
+          </View>
+        )}
+      />
+
+      <View
+        className="absolute bottom-0 left-0 right-0 h-[100px] justify-items-start items-center bg-[#F2F2F2] py-3"
+        style={{
+          elevation: 10,
+          shadowColor: "#000",
+          shadowOpacity: 0.1,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: -10 },
+        }}
+      >
+        <CustomButton
+          title="Done"
+          containerStyle="bg-primary rounded-xl justify-center items-center min-h-[55px] w-[95%]"
+          textStyle={"text-white font-rmedium text-[18px]"}
+          handlePress={() => {
+            router.back();
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export default sort;

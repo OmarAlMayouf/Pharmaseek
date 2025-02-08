@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
-import { SplashScreen, Stack } from 'expo-router'
+import { TouchableOpacity } from 'react-native'
+import { router, SplashScreen, Stack } from 'expo-router'
 import { useFonts } from 'expo-font'
 import "../global.css";
 import { useEffect } from 'react';
+import { Ionicons } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,6 +32,23 @@ const RootLayout = () => {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen 
+        name="(modal)"
+        options={{
+          headerTitle: "Sort By",
+          presentation: "modal",
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: "#ffffff",
+          },
+          headerTitleAlign: "center",
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
+              <Ionicons name="close" size={24} color="#154C79" />
+            </TouchableOpacity>
+          )
+        }} 
+      />
     </Stack>
   )
 }

@@ -107,7 +107,7 @@ const Home = () => {
           <View className="flex-row items-center">
             <Ionicons name="location" size={20} color="#154C79" />
             <View className="w-24 flex-row content-center">
-              <Text className="text-[#154C79] ml-2 font-rregular text-[12px]" numberOfLines={2}>
+              <Text className="text-primary ml-2 font-rregular text-[12px]" numberOfLines={2}>
                 Al Abawa, 6860 Riyadh
               </Text>
             </View>
@@ -194,7 +194,7 @@ const Home = () => {
 
           <View className="flex-row justify-between items-center px-4">
             <Text className="text-[17px] font-semibold">Pharmacy</Text>
-            <TouchableOpacity className="p-2 ">
+            <TouchableOpacity className="p-2 " activeOpacity={0.7} onPress={() => {router.push("/sort")}}>
               <Ionicons name="options-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>

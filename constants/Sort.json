@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Closest",
+        "value": "closest"
+    },
+    {
+        "name": "Furthest",
+        "value": "furthest"
+    },
+    {
+        "name": "Highest Rating",
+        "value": "Hrating"
+    },
+    {
+        "name": "Lowest Rating",
+        "value": "Lrating"
+    },
+    {
+        "name": "Opened",
+        "value": "opened"
+    },
+    {
+        "name": "Closed",
+        "value": "closed"
+    }
+]
