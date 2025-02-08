@@ -7,12 +7,14 @@ import { haversineDistance, cleanStreetName, getPharmacyName, isPharmacyOpen, ge
 import * as Location from 'expo-location';
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 
 const Home = () => {
   const [pharmacies, setPharmacies] = useState([]);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const { sortOption = "closest" } = useLocalSearchParams();
 
   useEffect(() => {
     const subscription = AppState.addEventListener(
@@ -96,7 +98,30 @@ const Home = () => {
       };
     });
 
-    const sortedData = processedData.sort((a, b) => a.distance - b.distance);
+    let sortedData = [...processedData];
+
+    if (sortOption === "closest") {
+      sortedData.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance)); 
+    } else if (sortOption === "furthest") {
+      sortedData.sort((a, b) => parseFloat(b.distance) - parseFloat(a.distance)); 
+    } else if (sortOption === "Hrating") {
+      sortedData.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)); 
+    } else if (sortOption === "Lrating") {
+      sortedData.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating)); 
+    } else if (sortOption === "opened") {
+      sortedData.sort((a, b) => {
+        if (a.status === "Opened" && b.status !== "Opened") return -1;
+        if (a.status !== "Opened" && b.status === "Opened") return 1;
+        return 0;
+      });
+    } else if (sortOption === "closed") {
+      sortedData.sort((a, b) => {
+        if (a.status === "Closed" && b.status !== "Closed") return -1;
+        if (a.status !== "Closed" && b.status === "Closed") return 1;
+        return 0;
+      });
+    }
+
     setPharmacies(sortedData);
   }, [location]);
 
