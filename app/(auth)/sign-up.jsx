@@ -1,13 +1,12 @@
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, Alert, KeyboardAvoidingView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
 import { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
 import { router } from 'expo-router';
-import { KeyboardAvoidingView } from 'react-native';
-import { StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { createUser } from '../../lib/appwrite'
 
 const signUp = () => {
   const [form, setForm] = useState({
@@ -19,18 +18,36 @@ const signUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    inputContainer: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });
+  const sumbit = async () => {
+
+    if (!form.fullName || !form.email || !form.password || !form.passwordConfirmation) {
+      Alert.alert('Please fill in all fields');
+      return;
+    }
+
+    if (form.password !== form.passwordConfirmation) {
+      Alert.alert('Passwords do not match');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await createUser(form.email, form.password, form.fullName);
+
+      // TODO: Set it to global state...
+
+      router.replace('/home');
+
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
       <ScrollView className="bg-white">
         <SafeAreaView className="bg-white h-full">
           <View className="flex-1 min-h-[85vh] w-full">
@@ -100,7 +117,7 @@ const signUp = () => {
 
               }}><CustomButton
                   title="Sign Up"
-                  handlePress={() => router.push('/sign-in')}
+                  handlePress={sumbit}
                   containerStyle="bg-primary rounded-[15px] min-h-[55px] item-center justify-center mt-4"
                   textStyle="text-white font-rmedium text-[18px] text-center"
                   isLoading={isSubmitting}

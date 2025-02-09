@@ -17,7 +17,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow Pharmaseek to use your location to show nearby pharmacies"
-      }
+      },
+      "package": "com.ksu.pharmaseek"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,7 +28,8 @@
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION"
-      ]
+      ],
+      "package": "com.ksu.pharmaseek"
     },
     "web": {
       "favicon": "./assets/favicon.png"

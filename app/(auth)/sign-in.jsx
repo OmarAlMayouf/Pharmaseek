@@ -1,4 +1,4 @@
-import { Text, View, Image, ScrollView, KeyboardAvoidingView, StyleSheet } from "react-native";
+import { Text, View, Image, ScrollView, KeyboardAvoidingView, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import { StatusBar } from "expo-status-bar";
@@ -6,28 +6,41 @@ import { router } from "expo-router";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { useState } from "react";
+import { signIn } from "../../lib/appwrite";
 
-const signIn = () => {
+const SignIn = () => {
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    inputContainer: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  });
+  const sumbit = async () => {
+
+    if (!form.email || !form.password) {
+      Alert.alert('Please fill in all fields');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await signIn(form.email, form.password);
+
+      // TODO: Set it to global state...
+
+      router.replace('/home');
+
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="height">
       <ScrollView className="bg-white">
         <SafeAreaView className="bg-white h-full">
           <View className="flex-1 min-h-[85vh] w-full">
@@ -86,14 +99,14 @@ const signIn = () => {
               >
                 <CustomButton
                   title="Forget Password?"
-                  handlePress={() => router.push("/index")}
+                  handlePress={() => router.replace("/home")}
                   containerStyle=""
                   textStyle={"text-primary font-rsemibold text-[13px]"}
                 />
               </View>
               <CustomButton
                 title="Sign In"
-                handlePress={() => router.push("/home")}
+                handlePress={sumbit}
                 containerStyle="bg-primary mt-16 rounded-[15px] justify-center items-center min-h-[55px]"
                 textStyle={"text-white font-rmedium text-[18px]"}
                 isLoading={isSubmitting}
@@ -118,4 +131,4 @@ const signIn = () => {
   );
 };
 
-export default signIn;
+export default SignIn;

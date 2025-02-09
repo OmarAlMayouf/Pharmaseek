@@ -1,26 +1,26 @@
 [
-    {
-        "name": "Closest",
-        "value": "closest"
-    },
-    {
-        "name": "Furthest",
-        "value": "furthest"
-    },
-    {
-        "name": "Highest Rating",
-        "value": "Hrating"
-    },
-    {
-        "name": "Lowest Rating",
-        "value": "Lrating"
-    },
-    {
-        "name": "Opened",
-        "value": "opened"
-    },
-    {
-        "name": "Closed",
-        "value": "closed"
-    }
+  {
+    "name": "Closest",
+    "value": "closest"
+  },
+  {
+    "name": "Opened",
+    "value": "opened"
+  },
+  {
+    "name": "Highest Rating",
+    "value": "Hrating"
+  },
+  {
+    "name": "Furthest",
+    "value": "furthest"
+  },
+  {
+    "name": "Closed",
+    "value": "closed"
+  },
+  {
+    "name": "Lowest Rating",
+    "value": "Lrating"
+  }
 ]
