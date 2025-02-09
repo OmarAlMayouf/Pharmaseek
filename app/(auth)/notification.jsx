@@ -1,9 +1,7 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { Image } from "react-native";
 import { images } from "../../constants";
-import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
 
 const notification = () => {
   return (

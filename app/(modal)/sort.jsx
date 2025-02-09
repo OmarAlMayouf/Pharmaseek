@@ -14,8 +14,8 @@ const sort = () => {
         data={Sort}
         keyExtractor={(item) => item.value}
         renderItem={({ item }) => (
-          <View className="flex-row justify-between mb-4 border-b-[0.5px] border-[#7D7D7D50] py-3">
-            <Text className="text-zinc-700 text-lg font-rmedium">
+          <View className="flex-row justify-between mb-6 border-b-[0.5px] border-[#7D7D7D50] py-3">
+            <Text className={`${selectedSort === item.value ? "text-primary" : "text-zinc-700"} text-lg font-rmedium`}>
               {item.name}
             </Text>
             <BouncyCheckbox

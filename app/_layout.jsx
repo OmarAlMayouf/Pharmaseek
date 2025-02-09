@@ -1,14 +1,13 @@
-import { TouchableOpacity } from 'react-native'
-import { router, SplashScreen, Stack } from 'expo-router'
-import { useFonts } from 'expo-font'
+import { TouchableOpacity } from "react-native";
+import { router, SplashScreen, Stack } from "expo-router";
+import { useFonts } from "expo-font";
 import "../global.css";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
-
   const [fontsLoaded, error] = useFonts({
     "Roboto_Condensed-Light": require("../assets/fonts/Roboto_Condensed-Light.ttf"),
     "Roboto_Condensed-MediumItalic": require("../assets/fonts/Roboto_Condensed-MediumItalic.ttf"),
@@ -29,10 +28,19 @@ const RootLayout = () => {
 
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen 
+      <Stack.Screen
+        name="index"
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="(auth)"
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
         name="(modal)"
         options={{
           headerTitle: "Sort By",
@@ -46,11 +54,11 @@ const RootLayout = () => {
             <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
               <Ionicons name="close" size={24} color="#154C79" />
             </TouchableOpacity>
-          )
-        }} 
+          ),
+        }}
       />
     </Stack>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;
