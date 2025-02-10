@@ -59,7 +59,7 @@ const more = () => {
         <TouchableOpacity
           key={index}
           className="flex-row items-center justify-between py-3 border-b border-gray-200"
-          onPress={() => router.push(item.route)}
+          onPress={() => router.replace(item.route)}
           activeOpacity={0.3}
         >
           <View className="flex-row items-center">
@@ -81,7 +81,7 @@ const more = () => {
         </Text>
         <TouchableOpacity
           className="flex-row items-center"
-          onPress={() => router.replace                                            ("/sign-in")}
+          onPress={() => router.push("/sign-in")}
           activeOpacity={0.3}
         >
           <Ionicons name="log-out-outline" size={30} color="#154C79" />
