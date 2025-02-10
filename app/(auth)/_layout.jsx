@@ -41,7 +41,29 @@ const AuthLayout = () => {
             ),
           }}
         />
+        <Stack.Screen
+          name="settings"
+          options={{
+            headerShown: true,
+            headerTitle: "Settings",
+            headerTitleAlign: "center",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: "#ffffff",
+            },
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()}>
+                <Ionicons
+                  name="chevron-back-outline"
+                  size={24}
+                  color="#7D7D7D"
+                />
+              </TouchableOpacity>
+            ),
+          }}
+        />
       </Stack>
+      
     </>
   );
 }
