@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
@@ -59,7 +58,7 @@ const more = () => {
         <TouchableOpacity
           key={index}
           className="flex-row items-center justify-between py-3 border-b border-gray-200"
-          onPress={() => router.replace(item.route)}
+          onPress={() => router.push(item.route)}
           activeOpacity={0.3}
         >
           <View className="flex-row items-center">
