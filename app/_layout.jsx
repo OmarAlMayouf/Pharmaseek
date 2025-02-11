@@ -36,7 +36,7 @@ const RootLayout = () => {
         />
         <Stack.Screen
           name="(auth)"
-          options={{ headerShown: false, gestureEnabled: false }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="(tabs)"

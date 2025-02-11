@@ -57,7 +57,7 @@ const more = () => {
             />
             <Text className="text-base font-rregular">{item.title}</Text>
           </View>
-          <Ionicons name="chevron-forward-outline" size={24} color="#7D7D7D" />
+          <Ionicons name="chevron-forward-outline" size={20} color="#7D7D7D" />
         </TouchableOpacity>
       ))}
       <View className="mt-6" />
@@ -78,7 +78,7 @@ const more = () => {
             />
             <Text className="text-base font-rregular">{item.title}</Text>
           </View>
-          <Ionicons name="chevron-forward-outline" size={24} color="#7D7D7D" />
+          <Ionicons name="chevron-forward-outline" size={20} color="#7D7D7D" />
         </TouchableOpacity>
       ))}
       <View className="mt-6" />
@@ -91,8 +91,8 @@ const more = () => {
           onPress={logout}
           activeOpacity={0.3}
         >
-          <Ionicons name="log-out-outline" size={30} color="#154C79" />
-          <Text className="text-base text-black ml-2 font-rregular">
+          <Ionicons name="log-out-outline" size={25} color="#ff2f0b" />
+          <Text className="text-lg text-[#ff2f0b] ml-2 font-rmedium">
             Log out
           </Text>
         </TouchableOpacity>

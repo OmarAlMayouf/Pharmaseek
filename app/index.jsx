@@ -60,13 +60,13 @@ export default function App() {
         <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 40, paddingHorizontal: 20 }}>
           <CustomButton 
             title="Sign In"
-            handlePress={() => router.push('/sign-in')}
+            handlePress={() => router.replace('/sign-in')}
             containerStyle="bg-primary mt-4 rounded-[15px] justify-center items-center min-h-[55px]"
             textStyle={"text-white font-rmedium text-[18px]"}
             />
           <CustomButton 
             title="Create New Account"
-            handlePress={() => router.push('/sign-up')}
+            handlePress={() => router.replace('/sign-up')}
             containerStyle="bg-[#ECECEC] mt-4 rounded-[15px] justify-center items-center min-h-[55px]"
             textStyle={"text-[#373737] font-rmedium text-[18px]"}
             />

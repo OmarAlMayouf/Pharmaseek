@@ -120,7 +120,7 @@ const SignIn = () => {
                   Don't have an account?{" "}
                   <Text
                     className="text-primary font-rsemibold"
-                    onPress={() => router.push("/sign-up")}
+                    onPress={() => router.replace("/sign-up")}
                   >
                     Sign Up
                   </Text>
