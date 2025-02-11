@@ -1,11 +1,16 @@
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '../constants';
 import CustomButton from '../components/CustomButton';
 import { StatusBar } from 'expo-status-bar';
 import { Redirect, router } from 'expo-router';
+import { useGlobalContext } from '../context/GlobalProvider';
 
 export default function App() {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+
+  if(!isLoading && isLoggedIn) return <Redirect href="/home" />
+
   return (
     <SafeAreaView className="bg-white h-full">
       <View className="flex-1 min-h-[85vh] w-full">

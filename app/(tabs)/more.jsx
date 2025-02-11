@@ -1,11 +1,19 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { signOut } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const more = () => {
-  const navigation = useNavigation();
+  const { setUser, setIsLoggedIn } = useGlobalContext();
+
+  const logout = async () => {
+    await signOut();
+    setUser(null);
+    setIsLoggedIn(false);
+    router.replace("/sign-in");
+  }
 
   const menuItems = [
     { title: "My Profile", icon: "person-outline", route: "Profile" },
@@ -37,7 +45,7 @@ const more = () => {
         <TouchableOpacity
           key={index}
           className="flex-row items-center justify-between py-3 border-b border-gray-200"
-          onPress={() => navigation.navigate(item.route)}
+          onPress={() => router.push(item.route)}
           activeOpacity={0.3}
         >
           <View className="flex-row items-center">
@@ -80,7 +88,7 @@ const more = () => {
         </Text>
         <TouchableOpacity
           className="flex-row items-center"
-          onPress={() => router.push("/sign-in")}
+          onPress={logout}
           activeOpacity={0.3}
         >
           <Ionicons name="log-out-outline" size={30} color="#154C79" />

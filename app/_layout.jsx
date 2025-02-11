@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import "../global.css";
 import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import GlobalProvider from "../context/GlobalProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,37 +28,39 @@ const RootLayout = () => {
   if (!fontsLoaded && !error) return null;
 
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false, gestureEnabled: false }}
-      />
-      <Stack.Screen
-        name="(auth)"
-        options={{ headerShown: false, gestureEnabled: false }}
-      />
-      <Stack.Screen
-        name="(tabs)"
-        options={{ headerShown: false, gestureEnabled: false }}
-      />
-      <Stack.Screen
-        name="(modal)"
-        options={{
-          headerTitle: "Sort By",
-          presentation: "modal",
-          headerShadowVisible: false,
-          headerStyle: {
-            backgroundColor: "#ffffff",
-          },
-          headerTitleAlign: "center",
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
-              <Ionicons name="close" size={24} color="#154C79" />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-    </Stack>
+    <GlobalProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="(auth)"
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="(tabs)"
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <Stack.Screen
+          name="(modal)"
+          options={{
+            headerTitle: "Sort By",
+            presentation: "modal",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: "#ffffff",
+            },
+            headerTitleAlign: "center",
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7}>
+                <Ionicons name="close" size={24} color="#154C79" />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+      </Stack>
+    </GlobalProvider>
   );
 };
 
