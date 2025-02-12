@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import pharmacyData from '../../constants/Pharmacy_dataSet2.json';
 import { StatusBar } from 'expo-status-bar';
 import { images } from '../../constants';
-import { haversineDistance, cleanStreetName, getPharmacyName, isPharmacyOpen, getPharmacyRating } from '../../constants/dataPulling';
+import { haversineDistance, cleanStreetName, getPharmacyName, isPharmacyOpen, getPharmacyRating, getAddressFromLocation } from '../../constants/dataPulling';
 import * as Location from 'expo-location';
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
@@ -13,6 +13,7 @@ const Home = () => {
   const [pharmacies, setPharmacies] = useState([]);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [userAddress, setUserAddress] = useState("Loading...");
 
   const { sortOption = "closest" } = useLocalSearchParams();
 
@@ -41,6 +42,10 @@ const Home = () => {
           lng: location.coords.longitude,
         });
         setErrorMsg(null);
+
+        const address = await getAddressFromLocation(location.coords.latitude, location.coords.longitude);
+        setUserAddress(address);
+
       } else if (status === "denied" || status === "blocked") {
         setErrorMsg("We're having trouble detecting your location");
       } else {
@@ -133,7 +138,7 @@ const Home = () => {
             <Ionicons name="location" size={20} color="#154C79" />
             <View className="w-24 flex-row content-center">
               <Text className="text-primary ml-2 font-rregular text-[12px]" numberOfLines={2}>
-                Al Abawa, 6860 Riyadh
+                {userAddress}
               </Text>
             </View>
           </View>

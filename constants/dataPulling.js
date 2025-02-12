@@ -3,6 +3,8 @@
     please please place all the helper functions in this file to make the code there more readable and call them when needed.
 */
 
+import * as Location from "expo-location";
+
 // haversine distance to calculate the distance between client and pharmacy
 export const haversineDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371;
@@ -18,6 +20,35 @@ export const haversineDistance = (lat1, lon1, lat2, lon2) => {
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
+};
+
+// Reverse geocode the location to get the address
+export const getAddressFromLocation = async (latitude, longitude) => {
+  try {
+    const address = await Location.reverseGeocodeAsync({ latitude, longitude });
+    if (address.length > 0) {
+      const { street, city, region, postalCode, country } = address[0];
+      const rawAddress = `${street || ''}, ${postalCode || ''} ${city || ''}, ${region || ''}, ${country || ''}`;
+      return cleanAddress(rawAddress);
+    }
+    return "Unknown Location";
+  } catch (error) {
+    console.error("Error reverse geocoding location:", error);
+    return "Unknown Location";
+  }
+};
+
+// Clean the address above
+export const cleanAddress = (address) => {
+  if (!address) return "Unknown Location";
+
+  const parts = address.split(',').map(part => part.trim());
+
+  const street = parts[0] || '';
+  const postalCode = parts[1]?.match(/\d+/)?.[0] || '';
+  const city = parts[2] || '';
+
+  return `${street}, ${postalCode} ${city}`;
 };
 
 // get the name of the pharmacy
