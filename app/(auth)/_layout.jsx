@@ -62,6 +62,13 @@ const AuthLayout = () => {
             ),
           }}
         />
+        <Stack.Screen
+          name="search"
+          options={{
+            headerShown: false,
+            gestureEnabled: false,
+          }}
+        />
       </Stack>
       
     </>

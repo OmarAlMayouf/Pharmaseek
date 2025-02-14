@@ -83,11 +83,11 @@ const Home = () => {
       const distance =
         pharmacy.latitude && pharmacy.longitude
           ? haversineDistance(
-              location.lat,
-              location.lng,
-              pharmacy.latitude,
-              pharmacy.longitude
-            ).toFixed(2)
+            location.lat,
+            location.lng,
+            pharmacy.latitude,
+            pharmacy.longitude
+          ).toFixed(2)
           : "N/A";
 
       return {
@@ -106,13 +106,13 @@ const Home = () => {
     let sortedData = [...processedData];
 
     if (sortOption === "closest") {
-      sortedData.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance)); 
+      sortedData.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
     } else if (sortOption === "furthest") {
-      sortedData.sort((a, b) => parseFloat(b.distance) - parseFloat(a.distance)); 
+      sortedData.sort((a, b) => parseFloat(b.distance) - parseFloat(a.distance));
     } else if (sortOption === "Hrating") {
-      sortedData.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating)); 
+      sortedData.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
     } else if (sortOption === "Lrating") {
-      sortedData.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating)); 
+      sortedData.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
     } else if (sortOption === "opened") {
       sortedData.sort((a, b) => {
         if (a.status === "Opened" && b.status !== "Opened") return -1;
@@ -158,16 +158,24 @@ const Home = () => {
           </TouchableOpacity>
         </View>
         <View className="px-4 mt-4">
-          <TextInput
-            placeholder="What are you looking for?"
-            className="border border-gray-300 rounded-xl pl-4 pr-12 py-3 placeholder:text-[#7D7D7D60] text-[14px] font-rregular text-left"
-          />
-          <Ionicons
-            name="search-outline"
-            size={24}
-            color="#7D7D7D"
-            className="absolute top-2 right-7"
-          />
+          <TouchableOpacity
+            onPress={() => router.replace("/search")}
+            activeOpacity={0.8} 
+            className="border border-gray-300 rounded-xl pl-4 pr-12 py-3 bg-white flex-row items-center"
+          >
+            <TextInput
+              placeholder="What are you looking for?"
+              editable={false} 
+              className="flex-1 placeholder:text-[#7D7D7D60] text-[14px] font-rregular text-left"
+            />
+            <Ionicons
+              name="search-outline"
+              size={24}
+              color="#7D7D7D"
+              className="absolute top-2 right-7"
+            />
+          </TouchableOpacity>
+
         </View>
       </View>
       {errorMsg ? (
@@ -224,7 +232,7 @@ const Home = () => {
 
           <View className="flex-row justify-between items-center px-4">
             <Text className="text-[17px] font-semibold">Pharmacy</Text>
-            <TouchableOpacity className="p-2 " activeOpacity={0.7} onPress={() => {router.push("/sort")}}>
+            <TouchableOpacity className="p-2 " activeOpacity={0.7} onPress={() => { router.push("/sort") }}>
               <Ionicons name="options-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>
@@ -256,7 +264,7 @@ const Home = () => {
                   />
 
                   <View className="ml-4 flex-1">
-                    <View className="w-52" >                    
+                    <View className="w-52" >
                       <Text className="text-[15px] font-rsemibold" numberOfLines={1}>
                         {item.name}
                       </Text>
