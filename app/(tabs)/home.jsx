@@ -1,13 +1,21 @@
-import { View, Text, FlatList, Image, Linking, AppState, TouchableOpacity, TextInput } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import pharmacyData from '../../constants/Pharmacy_dataSet2.json';
 import { StatusBar } from 'expo-status-bar';
 import { images } from '../../constants';
-import { haversineDistance, cleanStreetName, getPharmacyName, isPharmacyOpen, getPharmacyRating, getAddressFromLocation } from '../../constants/dataPulling';
 import * as Location from 'expo-location';
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../../components/CustomButton";
 import { router, useLocalSearchParams } from 'expo-router';
+
+import { 
+  View, Text, FlatList, Image, 
+  Linking, AppState, TouchableOpacity
+} from 'react-native';
+
+import { 
+  haversineDistance, cleanStreetName, getPharmacyName, 
+  isPharmacyOpen, getPharmacyRating, getAddressFromLocation
+} from '../../constants/dataPulling';
 
 const Home = () => {
   const [pharmacies, setPharmacies] = useState([]);
@@ -159,15 +167,16 @@ const Home = () => {
         </View>
         <View className="px-4 mt-4">
           <TouchableOpacity
-            onPress={() => router.replace("/search")}
+            onPress={() => router.push("/search")}
             activeOpacity={0.8} 
             className="border border-gray-300 rounded-xl pl-4 pr-12 py-3 bg-white flex-row items-center"
           >
-            <TextInput
-              placeholder="What are you looking for?"
-              editable={false} 
-              className="flex-1 placeholder:text-[#7D7D7D60] text-[14px] font-rregular text-left"
-            />
+            <Text
+              className="flex-1 text-[#7D7D7D60] text-[14px] font-rregular text-left"
+            >
+              What are you looking for?
+            </Text>
+            
             <Ionicons
               name="search-outline"
               size={24}

@@ -66,11 +66,9 @@ const AuthLayout = () => {
           name="search"
           options={{
             headerShown: false,
-            gestureEnabled: false,
           }}
         />
       </Stack>
-      
     </>
   );
 }
